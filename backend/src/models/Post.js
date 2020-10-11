@@ -11,4 +11,10 @@ const PostSchema = new mongoose.Schema({
 	},
 })
 
+PostSchema.pre('save', function() {
+	if (!this.url) {
+		this.url = `http://localhost:3001/files/${this.key}`
+	}
+})
+
 module.exports = mongoose.model('Post', PostSchema)
